@@ -25,7 +25,7 @@ server.get("/foo", async (request, reply) => {
 });
 
 server.get("/bar", async (request, reply) => {
-  reply.send({ msg: "bar" });
+  reply.send({ msg: "bind mount shit bruh" });
 });
 
 //. https://fastify.dev/docs/latest/Reference/Server/

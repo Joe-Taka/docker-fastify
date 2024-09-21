@@ -7,7 +7,7 @@
   "license": "MIT",
   "scripts": {
     "build": "tsc -p tsconfig.json",
-    "dev": "tsx watch ./index.ts"
+    "dev": "tsx watch ./src/index.ts"
   },
   "dependencies": {
     "fastify": "^5.0.0"
