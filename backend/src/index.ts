@@ -1,10 +1,12 @@
-import fastify from "fastify";
+import { fastify } from "fastify";
+import router from "./router";
 
 const envToLogger = {
   development: {
     transport: {
       target: "pino-pretty",
       options: {
+        colorize: true,
         translateTime: "HH:MM:ss Z",
         ignore: "pid,hostname",
         messageFormat: "{msg} {req.method} {req.url}",
@@ -20,17 +22,13 @@ const server = fastify({
   logger: envToLogger["development"] ?? true,
 });
 
-server.get("/foo", async (request, reply) => {
-  reply.send({ msg: "foo" });
-});
+server.register(router);
 
 server.get("/bar", async (request, reply) => {
-  reply.send({ msg: "bind mount shit bruh" });
+  reply.send({ msg: "bar" });
 });
 
-//. https://fastify.dev/docs/latest/Reference/Server/
-// When deploying to a Docker, and potentially other, containers, it is advisable to listen on 0.0.0.0 because they do not default to exposing mapped ports to localhost:
-server.listen({ port: 8080, host: '0.0.0.0' }, (err, address) => {
+server.listen({ port: 8080, host: "0.0.0.0" }, (err, address) => {
   if (err) {
     console.error(err);
     process.exit(1);
